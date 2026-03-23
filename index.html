@@ -3,1734 +3,374 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PRADA</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Nicole P Cosmetics — Luxury Made in Italy</title>
+  <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --white: #FFFFFF;
-      --off-white: #F7F5F2;
-      --light-grey: #E8E6E3;
-      --mid-grey: #B0ADA8;
-      --dark-grey: #5A5854;
-      --near-black: #1A1916;
-      --black: #0A0907;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      color: var(--near-black);
-      background: var(--white);
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3, h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-    }
-
-    /* ─── COOKIE BANNER ─── */
-    #cookie-banner {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      z-index: 9999;
-      background: var(--near-black);
-      color: var(--light-grey);
-      padding: 1.5rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      line-height: 1.7;
-    }
-    #cookie-banner a { color: var(--white); text-decoration: underline; }
-    .cookie-btn {
-      border: 1px solid var(--mid-grey);
-      background: transparent;
-      color: var(--white);
-      padding: 0.5rem 1.5rem;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.25s;
-      white-space: nowrap;
-    }
-    .cookie-btn:hover { background: var(--white); color: var(--near-black); }
-    .cookie-btn.accept { background: var(--white); color: var(--near-black); border-color: var(--white); }
-    .cookie-btn.accept:hover { background: transparent; color: var(--white); }
-
-    /* ─── UTILITY BAR ─── */
-    #utility-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--light-grey);
-      padding: 0.5rem 2rem;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 1.5rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    .util-link {
-      display: flex; align-items: center; gap: 0.35rem;
-      color: var(--near-black); text-decoration: none;
-      cursor: pointer;
-      transition: color 0.2s;
-      position: relative;
-    }
-    .util-link:hover { color: var(--mid-grey); }
-    .cart-badge {
-      position: absolute; top: -6px; right: -8px;
-      background: var(--near-black); color: var(--white);
-      font-size: 0.55rem; width: 14px; height: 14px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    /* ─── MAIN HEADER ─── */
-    #main-header {
-      position: sticky; top: 0; z-index: 500;
-      background: var(--white);
-      border-bottom: 1px solid var(--light-grey);
-    }
-    .header-inner {
-      display: flex; align-items: center;
-      padding: 0 2rem;
-      height: 64px;
-    }
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-weight: 500;
-      letter-spacing: 0.35em;
-      text-decoration: none;
-      color: var(--near-black);
-      flex-shrink: 0;
-    }
-    nav.main-nav {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      flex: 1;
-      justify-content: center;
-    }
-    .nav-item {
-      position: relative;
-      height: 64px;
-      display: flex;
-      align-items: center;
-    }
-    .nav-link {
-      padding: 0 1.2rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--near-black);
-      cursor: pointer;
-      white-space: nowrap;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      transition: color 0.2s;
-    }
-    .nav-link:hover { color: var(--mid-grey); }
-    .nav-item:hover .dropdown { opacity: 1; pointer-events: auto; transform: translateY(0); }
-
-    /* ─── DROPDOWN ─── */
-    .dropdown {
-      position: absolute; top: 100%; left: 50%;
-      transform: translateX(-50%) translateY(-8px);
-      background: var(--white);
-      border: 1px solid var(--light-grey);
-      padding: 2rem;
-      min-width: 640px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s, transform 0.3s;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      z-index: 600;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-    }
-    .dropdown.wide { min-width: 800px; grid-template-columns: repeat(4, 1fr); }
-    .dropdown-col h4 {
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--mid-grey);
-      margin-bottom: 1rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-    }
-    .dropdown-col ul { list-style: none; }
-    .dropdown-col ul li { margin-bottom: 0.6rem; }
-    .dropdown-col ul li a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      color: var(--near-black);
-      text-decoration: none;
-      transition: color 0.2s;
-      display: block;
-    }
-    .dropdown-col ul li a:hover { color: var(--mid-grey); }
-    .dropdown-img {
-      grid-column: span 1;
-      position: relative;
-      overflow: hidden;
-    }
-    .dropdown-img img { width: 100%; height: 160px; object-fit: cover; filter: grayscale(20%); }
-    .dropdown-img-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-top: 0.5rem;
-      color: var(--dark-grey);
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    /* ─── SEARCH OVERLAY ─── */
-    #search-overlay {
-      position: fixed; inset: 0; z-index: 900;
-      background: rgba(255,255,255,0.97);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.35s;
-    }
-    #search-overlay.active { opacity: 1; pointer-events: auto; }
-    #search-input {
-      width: 100%; max-width: 600px;
-      border: none; border-bottom: 1px solid var(--near-black);
-      padding: 1rem 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      text-align: center;
-      background: transparent;
-      outline: none;
-      color: var(--near-black);
-    }
-    #search-input::placeholder { color: var(--light-grey); }
-    .search-hint {
-      margin-top: 2rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--mid-grey);
-    }
-    .search-tags { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center; }
-    .search-tag {
-      font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
-      border: 1px solid var(--light-grey); padding: 0.4rem 1rem;
-      cursor: pointer; color: var(--dark-grey);
-      transition: all 0.2s;
-    }
-    .search-tag:hover { border-color: var(--near-black); color: var(--near-black); }
-    #search-close {
-      position: absolute; top: 1.5rem; right: 2rem;
-      font-size: 1.5rem; cursor: pointer; color: var(--near-black);
-      font-weight: 300; background: none; border: none;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    /* ─── MOBILE MENU ─── */
-    #mobile-menu-btn { display: none; }
-    #mobile-menu {
-      display: none;
-      position: fixed; inset: 0; z-index: 800;
-      background: var(--white);
-      overflow-y: auto;
-      padding: 5rem 2rem 4rem;
-    }
-    #mobile-menu.open { display: block; }
-    .mobile-nav-item { border-bottom: 1px solid var(--light-grey); }
-    .mobile-nav-link {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      color: var(--near-black); text-decoration: none;
-      cursor: pointer;
-    }
-    .mobile-submenu { padding: 0 0 1rem 1rem; display: none; }
-    .mobile-submenu.open { display: block; }
-    .mobile-submenu a {
-      display: block; padding: 0.5rem 0;
-      font-size: 0.8rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--dark-grey);
-      text-decoration: none;
-    }
-    #mobile-close {
-      position: absolute; top: 1.5rem; right: 1.5rem;
-      background: none; border: none; font-size: 1.5rem;
-      cursor: pointer; color: var(--near-black);
-    }
-
-    /* ─── HERO ─── */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 90vh;
-      min-height: 560px;
-      overflow: hidden;
-      display: flex; align-items: flex-end;
-    }
-    .hero img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: grayscale(15%);
-      transform: scale(1.03);
-      transition: transform 8s ease;
-    }
-    .hero:hover img { transform: scale(1); }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,9,7,0.55) 0%, transparent 50%);
-    }
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 3rem 3rem 4rem;
-      color: var(--white);
-    }
-    .hero-eyebrow {
-      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif; font-weight: 400;
-      margin-bottom: 0.75rem; opacity: 0.85;
-    }
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 300; line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-    .hero-sub {
-      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif; font-weight: 300;
-      margin-bottom: 1.75rem; opacity: 0.8;
-    }
-    .btn-primary {
-      display: inline-block;
-      padding: 0.75rem 2.5rem;
-      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif;
-      background: var(--white); color: var(--near-black);
-      text-decoration: none; cursor: pointer;
-      border: 1px solid transparent;
-      transition: all 0.3s;
-    }
-    .btn-primary:hover { background: transparent; color: var(--white); border-color: var(--white); }
-    .btn-outline {
-      display: inline-block;
-      padding: 0.75rem 2.5rem;
-      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif;
-      background: transparent; color: var(--near-black);
-      text-decoration: none; cursor: pointer;
-      border: 1px solid var(--near-black);
-      transition: all 0.3s;
-    }
-    .btn-outline:hover { background: var(--near-black); color: var(--white); }
-    .btn-outline-white {
-      display: inline-block;
-      padding: 0.75rem 2.5rem;
-      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif;
-      background: transparent; color: var(--white);
-      text-decoration: none; cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.6);
-      transition: all 0.3s;
-    }
-    .btn-outline-white:hover { background: var(--white); color: var(--near-black); border-color: var(--white); }
-
-    /* ─── SECTION HEADER ─── */
-    .section-header {
-      text-align: center;
-      padding: 5rem 2rem 3rem;
-    }
-    .section-eyebrow {
-      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif; color: var(--mid-grey);
-      margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 300; line-height: 1.15;
-    }
-    .section-rule {
-      width: 40px; height: 1px;
-      background: var(--near-black);
-      margin: 1.5rem auto;
-    }
-    .section-desc {
-      font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.9;
-      color: var(--dark-grey); max-width: 560px; margin: 0 auto;
-    }
-
-    /* ─── EDITORIAL GRID ─── */
-    .editorial-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: var(--light-grey);
-    }
-    .editorial-grid.thirds { grid-template-columns: 1fr 1fr 1fr; }
-    .editorial-cell {
-      position: relative;
-      overflow: hidden;
-      background: var(--off-white);
-      cursor: pointer;
-    }
-    .editorial-cell img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.7s ease;
-      display: block;
-      min-height: 420px;
-    }
-    .editorial-cell:hover img { transform: scale(1.04); }
-    .editorial-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,9,7,0.45) 0%, transparent 45%);
-      pointer-events: none;
-    }
-    .editorial-label {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.5rem 1.75rem;
-      color: var(--white);
-    }
-    .editorial-label-eyebrow {
-      font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif; opacity: 0.75;
-      margin-bottom: 0.4rem;
-    }
-    .editorial-label-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem; font-weight: 300; line-height: 1.2;
-    }
-    .editorial-cell.tall img { min-height: 640px; }
-
-    /* ─── PRODUCT CARD ─── */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      padding: 0 2rem 5rem;
-    }
-    .product-card {
-      position: relative;
-      cursor: pointer;
-    }
-    .product-card-img {
-      position: relative;
-      overflow: hidden;
-      background: var(--off-white);
-      aspect-ratio: 3/4;
-      margin-bottom: 1rem;
-    }
-    .product-card-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
-    }
-    .product-card:hover .product-card-img img { transform: scale(1.06); }
-    .product-card-wishlist {
-      position: absolute; top: 1rem; right: 1rem;
-      z-index: 2;
-      background: none; border: none; cursor: pointer;
-      color: var(--near-black); font-size: 1.1rem;
-      opacity: 0; transition: opacity 0.2s;
-    }
-    .product-card:hover .product-card-wishlist { opacity: 1; }
-    .product-card-badge {
-      position: absolute; top: 1rem; left: 1rem;
-      font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
-      background: var(--near-black); color: var(--white);
-      padding: 0.25rem 0.6rem;
-      font-family: 'Montserrat', sans-serif;
-    }
-    .product-card-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem; font-weight: 300;
-      margin-bottom: 0.3rem;
-    }
-    .product-card-desc {
-      font-size: 0.65rem; letter-spacing: 0.08em;
-      color: var(--dark-grey); margin-bottom: 0.5rem;
-    }
-    .product-card-price {
-      font-size: 0.75rem; letter-spacing: 0.06em;
-      font-weight: 500;
-    }
-
-    /* ─── HIGHLIGHT BAND ─── */
-    .highlight-band {
-      background: var(--near-black);
-      color: var(--white);
-      padding: 5rem 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-    .highlight-band.reverse { direction: rtl; }
-    .highlight-band.reverse > * { direction: ltr; }
-    .highlight-text h2 {
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 300; line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
-    .highlight-text p {
-      font-size: 0.75rem; letter-spacing: 0.08em; line-height: 1.9;
-      color: var(--mid-grey); max-width: 440px;
-      margin-bottom: 2rem;
-    }
-    .highlight-visual {
-      position: relative;
-      overflow: hidden;
-    }
-    .highlight-visual img {
-      width: 100%; aspect-ratio: 4/5;
-      object-fit: cover; display: block;
-      filter: grayscale(10%);
-    }
-
-    /* ─── CATEGORY STRIP ─── */
-    .category-strip {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1.5rem;
-      padding: 3rem 2rem 5rem;
-    }
-    .category-item {
-      text-align: center;
-      cursor: pointer;
-    }
-    .category-item-img {
-      aspect-ratio: 1;
-      overflow: hidden;
-      background: var(--off-white);
-      margin-bottom: 1rem;
-    }
-    .category-item-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-    .category-item:hover .category-item-img img { transform: scale(1.08); }
-    .category-item-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem; font-weight: 300;
-    }
-    .category-item-sub {
-      font-size: 0.6rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--mid-grey);
-      margin-top: 0.25rem;
-    }
-
-    /* ─── JEWELRY SECTION ─── */
-    .jewelry-section {
-      background: var(--off-white);
-      padding: 5rem 2rem;
-    }
-    .jewelry-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--light-grey);
-      margin-top: 3rem;
-    }
-    .jewelry-cell {
-      background: var(--white);
-      padding: 3rem 2rem;
-      text-align: center;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .jewelry-cell:hover { background: var(--off-white); }
-    .jewelry-cell img {
-      width: 100%; max-width: 260px;
-      aspect-ratio: 1;
-      object-fit: cover;
-      margin-bottom: 1.5rem;
-      filter: grayscale(5%);
-    }
-    .jewelry-line {
-      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--mid-grey); margin-bottom: 0.5rem;
-      font-family: 'Montserrat', sans-serif;
-    }
-    .jewelry-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem; font-weight: 300;
-    }
-
-    /* ─── MARQUEE ─── */
-    .marquee-wrapper {
-      overflow: hidden;
-      border-top: 1px solid var(--light-grey);
-      border-bottom: 1px solid var(--light-grey);
-      padding: 1.2rem 0;
-      white-space: nowrap;
-    }
-    .marquee-track {
-      display: inline-flex;
-      animation: marquee 28s linear infinite;
-    }
-    .marquee-item {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      font-weight: 300;
-      padding: 0 2.5rem;
-      color: var(--mid-grey);
-    }
-    .marquee-dot {
-      color: var(--near-black);
-      font-size: 0.5rem;
-      vertical-align: middle;
-    }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* ─── NEWSLETTER ─── */
-    .newsletter-section {
-      padding: 6rem 2rem;
-      max-width: 560px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .newsletter-section h2 {
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 300; margin-bottom: 1rem;
-    }
-    .newsletter-section p {
-      font-size: 0.72rem; letter-spacing: 0.06em; line-height: 1.9;
-      color: var(--dark-grey); margin-bottom: 2rem;
-    }
-    .newsletter-form {
-      display: flex;
-      border-bottom: 1px solid var(--near-black);
-    }
-    .newsletter-form input {
-      flex: 1;
-      border: none; outline: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.7rem; letter-spacing: 0.1em;
-      padding: 0.75rem 0;
-      background: transparent;
-      color: var(--near-black);
-    }
-    .newsletter-form input::placeholder { color: var(--mid-grey); }
-    .newsletter-form button {
-      background: none; border: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
-      cursor: pointer; color: var(--near-black);
-      padding: 0.75rem 0 0.75rem 1rem;
-      transition: color 0.2s;
-    }
-    .newsletter-form button:hover { color: var(--mid-grey); }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--near-black);
-      color: var(--white);
-    }
-    .footer-main {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-      padding: 4rem 2rem 3rem;
-    }
-    .footer-brand .logo-footer {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-weight: 500;
-      letter-spacing: 0.4em;
-      color: var(--white);
-      text-decoration: none;
-      display: block; margin-bottom: 1.5rem;
-    }
-    .footer-brand p {
-      font-size: 0.68rem; letter-spacing: 0.06em; line-height: 1.9;
-      color: var(--mid-grey); max-width: 280px; margin-bottom: 2rem;
-    }
-    .social-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .social-link {
-      font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--mid-grey); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .social-link:hover { color: var(--white); }
-    .footer-col h5 {
-      font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--mid-grey); margin-bottom: 1.25rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 500;
-    }
-    .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 0.7rem; }
-    .footer-col ul li a {
-      font-size: 0.7rem; letter-spacing: 0.06em;
-      color: var(--white); text-decoration: none;
-      opacity: 0.8; transition: opacity 0.2s;
-    }
-    .footer-col ul li a:hover { opacity: 1; }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding: 1.5rem 2rem;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem;
-    }
-    .footer-bottom p {
-      font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.35);
-    }
-    .footer-legal { display: flex; gap: 1.5rem; }
-    .footer-legal a {
-      font-size: 0.6rem; letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.35); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
-    .cs-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 0.5rem 1rem;
-      font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
-      cursor: pointer;
-      color: var(--mid-grey); transition: all 0.2s;
-      text-decoration: none;
-      margin-right: 0.75rem;
-    }
-    .cs-badge:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
-
-    /* ─── ANNOUNCEMENT BAR ─── */
-    .announcement-bar {
-      background: var(--near-black);
-      color: var(--white);
-      text-align: center;
-      padding: 0.6rem 2rem;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    /* ─── DIVIDER ─── */
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      background: var(--light-grey);
-    }
-
-    /* ─── SCROLL REVEAL ─── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 1024px) {
-      .product-grid { grid-template-columns: repeat(3, 1fr); }
-      .footer-main { grid-template-columns: 1fr 1fr; gap: 2rem; }
-      .category-strip { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    @media (max-width: 768px) {
-      nav.main-nav { display: none; }
-      #mobile-menu-btn { display: block; }
-      .header-inner { justify-content: space-between; }
-      .logo { font-size: 1.4rem; letter-spacing: 0.25em; }
-      .editorial-grid, .editorial-grid.thirds { grid-template-columns: 1fr; gap: 2px; }
-      .editorial-cell.tall img, .editorial-cell img { min-height: 320px; }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; padding: 0 1rem 3rem; }
-      .highlight-band { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
-      .highlight-band.reverse { direction: ltr; }
-      .category-strip { grid-template-columns: repeat(2, 1fr); gap: 1rem; padding: 2rem 1rem 3rem; }
-      .jewelry-grid { grid-template-columns: 1fr; }
-      .footer-main { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem 2rem; }
-      #utility-bar { justify-content: flex-end; gap: 1rem; padding: 0.5rem 1rem; }
-      .dropdown { display: none; }
-    }
-
-    @media (max-width: 480px) {
-      .product-grid { grid-template-columns: 1fr; }
-      .hero { height: 80vh; }
-      .hero-content { padding: 2rem 1.5rem 3rem; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════
-     COOKIE BANNER
-══════════════════════════════════════════════ -->
-<div id="cookie-banner">
-  <p style="flex:1; min-width:260px;">
-    Utilizziamo i cookie per migliorare la tua esperienza di navigazione, personalizzare i contenuti e analizzare il traffico. Per maggiori informazioni, consulta la nostra
-    <a href="#">Informativa sui Cookie</a> e la <a href="#">Privacy Policy</a>.
-  </p>
-  <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
-    <button class="cookie-btn" onclick="closeCookie()">Solo necessari</button>
-    <button class="cookie-btn" onclick="closeCookie()">Personalizza</button>
-    <button class="cookie-btn accept" onclick="closeCookie()">Accetta tutto</button>
+  <!-- ░░ ANNOUNCEMENT BANNER ░░ -->
+  <div class="announcement-bar">
+    <span>✦</span>
+    <p>SPEDIZIONE GRATUITA SOPRA I 100€ — SU TUTTI GLI ORDINI IN ITALIA</p>
+    <span>✦</span>
   </div>
-</div>
 
-<!-- ══════════════════════════════════════════════
-     ANNOUNCEMENT BAR
-══════════════════════════════════════════════ -->
-<div class="announcement-bar">
-  Spedizione gratuita per ordini superiori a €500 &nbsp;·&nbsp; Nuove arrivate: Primavera Estate 2026
-</div>
-
-<!-- ══════════════════════════════════════════════
-     UTILITY BAR
-══════════════════════════════════════════════ -->
-<div id="utility-bar">
-  <button class="util-link" onclick="toggleSearch()" aria-label="Cerca">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <span>Cerca</span>
-  </button>
-  <a class="util-link" href="#">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    <span>Contattaci</span>
-  </a>
-  <a class="util-link" href="#">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span>Accedi</span>
-  </a>
-  <a class="util-link" href="#">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    <span>Wishlist</span>
-  </a>
-  <a class="util-link" href="#" style="position:relative;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-    <span>Carrello</span>
-    <span class="cart-badge">0</span>
-  </a>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     MAIN HEADER + NAV
-══════════════════════════════════════════════ -->
-<header id="main-header">
-  <div class="header-inner">
-    <!-- Mobile menu button -->
-    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu" style="background:none;border:none;cursor:pointer;padding:0;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
-    </button>
-
-    <a href="#" class="logo">PRADA</a>
-
-    <nav class="main-nav" aria-label="Navigazione principale">
-
-      <!-- DONNA -->
-      <div class="nav-item">
-        <a class="nav-link" href="#">Donna</a>
-        <div class="dropdown wide">
-          <div class="dropdown-col">
-            <h4>Categorie</h4>
-            <ul>
-              <li><a href="#">Borse</a></li>
-              <li><a href="#">Calzature</a></li>
-              <li><a href="#">Abbigliamento</a></li>
-              <li><a href="#">Occhiali</a></li>
-              <li><a href="#">Gioielleria</a></li>
-              <li><a href="#">Piccola Pelletteria</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-col">
-            <h4>Borse</h4>
-            <ul>
-              <li><a href="#">Prada Galleria</a></li>
-              <li><a href="#">Prada Bonnie</a></li>
-              <li><a href="#">Prada Explore</a></li>
-              <li><a href="#">Prada Soft</a></li>
-              <li><a href="#">Hobo</a></li>
-              <li><a href="#">Micro-borse</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-col">
-            <h4>Calzature</h4>
-            <ul>
-              <li><a href="#">Décolleté</a></li>
-              <li><a href="#">Mocassini</a></li>
-              <li><a href="#">Sneakers</a></li>
-              <li><a href="#">Sandali</a></li>
-              <li><a href="#">Stivali</a></li>
-              <li><a href="#">Mary Jane</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-img">
-            <img src="https://placehold.co/300x200/1A1916/FFFFFF?text=PE+2026" alt="Primavera Estate 2026" />
-            <div class="dropdown-img-label">Primavera Estate 2026</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- UOMO -->
-      <div class="nav-item">
-        <a class="nav-link" href="#">Uomo</a>
-        <div class="dropdown wide">
-          <div class="dropdown-col">
-            <h4>Categorie</h4>
-            <ul>
-              <li><a href="#">Borse</a></li>
-              <li><a href="#">Calzature</a></li>
-              <li><a href="#">Abbigliamento</a></li>
-              <li><a href="#">Occhiali</a></li>
-              <li><a href="#">Piccola Pelletteria</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-col">
-            <h4>Borse</h4>
-            <ul>
-              <li><a href="#">Business Bag</a></li>
-              <li><a href="#">Zaini</a></li>
-              <li><a href="#">Messenger</a></li>
-              <li><a href="#">Clutch</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-col">
-            <h4>Calzature</h4>
-            <ul>
-              <li><a href="#">Mocassini</a></li>
-              <li><a href="#">Sneakers</a></li>
-              <li><a href="#">Derby & Oxford</a></li>
-              <li><a href="#">Boots</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-img">
-            <img src="https://placehold.co/300x200/1A1916/FFFFFF?text=Uomo+2026" alt="Uomo 2026" />
-            <div class="dropdown-img-label">Collezione Uomo</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BORSE -->
-      <div class="nav-item">
-        <a class="nav-link" href="#">Borse</a>
-        <div class="dropdown">
-          <div class="dropdown-col">
-            <h4>Linee Iconiche</h4>
-            <ul>
-              <li><a href="#">Prada Galleria</a></li>
-              <li><a href="#">Prada Bonnie</a></li>
-              <li><a href="#">Prada Explore</a></li>
-              <li><a href="#">Prada Soft</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-col">
-            <h4>Per Tipologia</h4>
-            <ul>
-              <li><a href="#">Borse a spalla</a></li>
-              <li><a href="#">Tote</a></li>
-              <li><a href="#">Clutch</a></li>
-              <li><a href="#">Zaini</a></li>
-              <li><a href="#">Belt Bag</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-img">
-            <img src="https://placehold.co/300x200/E8E6E3/1A1916?text=Borse" alt="Borse" />
-            <div class="dropdown-img-label">Le Nuove Arrivate</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- REGALI -->
-      <div class="nav-item">
-        <a class="nav-link" href="#">Regali</a>
-        <div class="dropdown">
-          <div class="dropdown-col">
-            <h4>Per Lei</h4>
-            <ul>
-              <li><a href="#">Borse</a></li>
-              <li><a href="#">Profumi</a></li>
-              <li><a href="#">Occhiali</a></li>
-              <li><a href="#">Portafogli</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-col">
-            <h4>Per Lui</h4>
-            <ul>
-              <li><a href="#">Cinture</a></li>
-              <li><a href="#">Profumi</a></li>
-              <li><a href="#">Portachiavi</a></li>
-              <li><a href="#">Accessori</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-img">
-            <img src="https://placehold.co/300x200/1A1916/FFFFFF?text=Gift" alt="Gift" />
-            <div class="dropdown-img-label">Idee Regalo</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PROFUMI & BEAUTY -->
-      <div class="nav-item">
-        <a class="nav-link" href="#">Profumi e Beauty</a>
-        <div class="dropdown">
-          <div class="dropdown-col">
-            <h4>Profumi</h4>
-            <ul>
-              <li><a href="#">Profumi Donna</a></li>
-              <li><a href="#">Profumi Uomo</a></li>
-              <li><a href="#">Prada Paradoxe</a></li>
-              <li><a href="#">Luna Rossa</a></li>
-              <li><a href="#">Candy</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-col">
-            <h4>Beauty</h4>
-            <ul>
-              <li><a href="#">Trucco Occhi</a></li>
-              <li><a href="#">Labbra</a></li>
-              <li><a href="#">Cura della Pelle</a></li>
-              <li><a href="#">Accessori Beauty</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-img">
-            <img src="https://placehold.co/300x200/E8E6E3/1A1916?text=Beauty" alt="Beauty" />
-            <div class="dropdown-img-label">Nuove Fragranze</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HOME & LIFESTYLE -->
-      <div class="nav-item">
-        <a class="nav-link" href="#">Home e Lifestyle</a>
-        <div class="dropdown">
-          <div class="dropdown-col">
-            <h4>Casa</h4>
-            <ul>
-              <li><a href="#">Porcellane</a></li>
-              <li><a href="#">Candele</a></li>
-              <li><a href="#">Tovaglieria</a></li>
-              <li><a href="#">Oggettistica</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-col">
-            <h4>Lifestyle</h4>
-            <ul>
-              <li><a href="#">Occhiali da Sole</a></li>
-              <li><a href="#">Tech Accessories</a></li>
-              <li><a href="#">Libri & Riviste</a></li>
-            </ul>
-          </div>
-          <div class="dropdown-img">
-            <img src="https://placehold.co/300x200/F7F5F2/1A1916?text=Home" alt="Home" />
-            <div class="dropdown-img-label">Casa Prada</div>
-          </div>
-        </div>
-      </div>
+  <!-- ░░ NAVIGATION ░░ -->
+  <header class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-np">NP</span>
+      <span class="logo-text">Cosmetics</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#novita">Novità</a>
+      <a href="#prodotti">Makeup</a>
+      <a href="#prodotti">Nightwear</a>
+      <a href="#prodotti">Accessori</a>
+      <a href="#prodotti">Cancelleria</a>
+      <a href="#contatti">Contatti</a>
     </nav>
-
-    <!-- Mobile search -->
-    <button onclick="toggleSearch()" aria-label="Cerca" style="background:none;border:none;cursor:pointer;display:none;" class="mobile-search-btn" id="mobile-search-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <button class="nav-cta">Shop Now</button>
+    <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
     </button>
+  </header>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#novita" onclick="toggleMenu()">Novità</a>
+    <a href="#prodotti" onclick="toggleMenu()">Makeup</a>
+    <a href="#prodotti" onclick="toggleMenu()">Nightwear</a>
+    <a href="#prodotti" onclick="toggleMenu()">Accessori</a>
+    <a href="#prodotti" onclick="toggleMenu()">Cancelleria</a>
+    <a href="#contatti" onclick="toggleMenu()">Contatti</a>
   </div>
-</header>
 
-<!-- ══════════════════════════════════════════════
-     MOBILE MENU
-══════════════════════════════════════════════ -->
-<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu mobile">
-  <button id="mobile-close" onclick="toggleMobileMenu()" aria-label="Chiudi menu">✕</button>
-
-  <div class="mobile-nav-item">
-    <div class="mobile-nav-link" onclick="toggleMobileSub('sub-donna')">
-      <span>Donna</span> <span style="font-size:1.2rem;">+</span>
+  <!-- ░░ HERO ░░ -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <img
+      class="hero-bg"
+      src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1800&q=80&fit=crop"
+      alt="Luxury Makeup Background"
+    />
+    <div class="hero-content">
+      <p class="hero-eyebrow">Made in Italy ✦ Est. 2022</p>
+      <h1 class="hero-title">
+        I NOSTRI PRODOTTI<br />
+        <em>MAKE&#8209;UP</em>
+      </h1>
+      <p class="hero-sub">Ideati, progettati e sviluppati in Italia<br />per chi sa che il lusso è uno stile di vita.</p>
+      <a href="#prodotti" class="btn btn-gold">SCOPRI LA COLLEZIONE</a>
     </div>
-    <div class="mobile-submenu" id="sub-donna">
-      <a href="#">Borse</a><a href="#">Prada Galleria</a><a href="#">Calzature</a>
-      <a href="#">Abbigliamento</a><a href="#">Gioielleria</a>
+    <div class="hero-scroll-hint">scroll ↓</div>
+  </section>
+
+  <!-- ░░ MARQUEE ░░ -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>LUXURY MAKEUP ✦</span>
+      <span>MADE IN ITALY ✦</span>
+      <span>CRUELTY FREE ✦</span>
+      <span>ICONIC VIBES ✦</span>
+      <span>LUXURY MAKEUP ✦</span>
+      <span>MADE IN ITALY ✦</span>
+      <span>CRUELTY FREE ✦</span>
+      <span>ICONIC VIBES ✦</span>
+      <span>LUXURY MAKEUP ✦</span>
+      <span>MADE IN ITALY ✦</span>
+      <span>CRUELTY FREE ✦</span>
+      <span>ICONIC VIBES ✦</span>
     </div>
   </div>
-  <div class="mobile-nav-item">
-    <div class="mobile-nav-link" onclick="toggleMobileSub('sub-uomo')">
-      <span>Uomo</span> <span style="font-size:1.2rem;">+</span>
-    </div>
-    <div class="mobile-submenu" id="sub-uomo">
-      <a href="#">Borse</a><a href="#">Mocassini</a><a href="#">Sneakers</a>
-      <a href="#">Abbigliamento</a>
-    </div>
-  </div>
-  <div class="mobile-nav-item">
-    <a class="mobile-nav-link" href="#">Borse</a>
-  </div>
-  <div class="mobile-nav-item">
-    <a class="mobile-nav-link" href="#">Regali</a>
-  </div>
-  <div class="mobile-nav-item">
-    <a class="mobile-nav-link" href="#">Profumi e Beauty</a>
-  </div>
-  <div class="mobile-nav-item">
-    <a class="mobile-nav-link" href="#">Home e Lifestyle</a>
-  </div>
 
-  <div style="margin-top:3rem; padding-top:2rem; border-top:1px solid var(--light-grey);">
-    <a href="#" style="display:block;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dark-grey);padding:0.5rem 0;text-decoration:none;">Accedi</a>
-    <a href="#" style="display:block;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dark-grey);padding:0.5rem 0;text-decoration:none;">Wishlist</a>
-    <a href="#" style="display:block;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dark-grey);padding:0.5rem 0;text-decoration:none;">Contattaci</a>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     SEARCH OVERLAY
-══════════════════════════════════════════════ -->
-<div id="search-overlay" role="dialog" aria-modal="true" aria-label="Cerca">
-  <button id="search-close" onclick="toggleSearch()" aria-label="Chiudi ricerca">✕</button>
-  <input type="text" id="search-input" placeholder="Cerca su Prada" autocomplete="off" />
-  <p class="search-hint">Ricerche popolari</p>
-  <div class="search-tags">
-    <span class="search-tag">Galleria</span>
-    <span class="search-tag">Mocassini</span>
-    <span class="search-tag">Sneakers</span>
-    <span class="search-tag">Re-Nylon</span>
-    <span class="search-tag">Candele</span>
-    <span class="search-tag">Paradoxe</span>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     HERO — PRIMAVERA ESTATE 2026
-══════════════════════════════════════════════ -->
-<section class="hero" aria-label="Primavera Estate 2026">
-  <img src="https://placehold.co/1600x900/1A1916/FFFFFF?text=PRIMAVERA+ESTATE+2026" alt="Prada Primavera Estate 2026" />
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Collezione</p>
-    <h1 class="hero-title">Primavera<br/>Estate 2026</h1>
-    <p class="hero-sub">Una nuova visione dell'eleganza contemporanea</p>
-    <a href="#" class="btn-primary">Scopri la Collezione</a>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     MARQUEE
-══════════════════════════════════════════════ -->
-<div class="marquee-wrapper">
-  <div class="marquee-track">
-    <span class="marquee-item">Prada Galleria</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Prada Bonnie</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Prada Explore</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Prada Soft</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Re-Nylon</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Fine Jewelry</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Prada Paradoxe</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Luna Rossa</span><span class="marquee-dot">·</span>
-    <!-- Duplicate for seamless loop -->
-    <span class="marquee-item">Prada Galleria</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Prada Bonnie</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Prada Explore</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Prada Soft</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Re-Nylon</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Fine Jewelry</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Prada Paradoxe</span><span class="marquee-dot">·</span>
-    <span class="marquee-item">Luna Rossa</span><span class="marquee-dot">·</span>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     EDITORIAL — RE-NYLON FOR SEA BEYOND
-══════════════════════════════════════════════ -->
-<section aria-label="Re-Nylon for SEA BEYOND">
-  <div class="section-header reveal">
-    <p class="section-eyebrow">Impegno per il Pianeta</p>
-    <h2 class="section-title">Re-Nylon for SEA BEYOND</h2>
-    <div class="section-rule"></div>
-    <p class="section-desc">
-      Prada si impegna per la sostenibilità con il progetto Re-Nylon: il nylon iconico del brand viene rigenerato da plastica raccolta dagli oceani, reti da pesca e rifiuti in fibre tessili.
-    </p>
-  </div>
-
-  <div class="editorial-grid">
-    <div class="editorial-cell tall reveal">
-      <img src="https://placehold.co/800x900/1A1916/FFFFFF?text=Re-Nylon" alt="Re-Nylon for SEA BEYOND" />
-      <div class="editorial-overlay"></div>
-      <div class="editorial-label">
-        <p class="editorial-label-eyebrow">Sostenibilità</p>
-        <p class="editorial-label-title">Re-Nylon<br/>for SEA BEYOND</p>
+  <!-- ░░ NOVITÀ STRIP ░░ -->
+  <section class="novita" id="novita">
+    <div class="container">
+      <div class="section-label">✦ New Drop</div>
+      <h2 class="section-title">Appena arrivati</h2>
+      <div class="novita-cards">
+        <article class="novita-card">
+          <div class="novita-badge">NEW</div>
+          <img src="https://images.unsplash.com/photo-1631214499065-b7a7fc6a3e82?w=600&q=80&fit=crop" alt="Mascara Pussy Power 2.0" />
+          <div class="novita-info">
+            <span class="tag">Makeup</span>
+            <h3>Mascara Pus*y Power 2.0</h3>
+            <p>Volume, curling &amp; lift in un solo gesto. Formula waterproof lunga durata.</p>
+            <span class="price">€ 24,90</span>
+          </div>
+        </article>
+        <article class="novita-card">
+          <div class="novita-badge">HOT</div>
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80&fit=crop" alt="Turn Me On Blush" />
+          <div class="novita-info">
+            <span class="tag">Makeup</span>
+            <h3>Turn Me On — Blush &amp; Contour Stick</h3>
+            <p>Duo blush-contour a stick: scolpisci e illumina con un solo prodotto.</p>
+            <span class="price">€ 19,90</span>
+          </div>
+        </article>
+        <article class="novita-card">
+          <div class="novita-badge">LIMITED</div>
+          <img src="https://images.unsplash.com/photo-1583241800698-e8ab01830a07?w=600&q=80&fit=crop" alt="Borraccia Termica NP" />
+          <div class="novita-info">
+            <span class="tag">Accessori</span>
+            <h3>Borraccia Termica NP Edition</h3>
+            <p>Acciaio inossidabile SS304 con rivestimento in rame, 950ml.</p>
+            <span class="price">€ 34,90</span>
+          </div>
+        </article>
       </div>
     </div>
-    <div style="display:flex; flex-direction:column; gap:2px; background:var(--light-grey);">
-      <div class="editorial-cell reveal">
-        <img src="https://placehold.co/800x440/F7F5F2/1A1916?text=Borse+Re-Nylon" alt="Borse Re-Nylon" />
-        <div class="editorial-overlay"></div>
-        <div class="editorial-label">
-          <p class="editorial-label-eyebrow">Borse</p>
-          <p class="editorial-label-title">La collezione Re-Nylon</p>
-        </div>
-      </div>
-      <div class="editorial-cell reveal" style="background:var(--near-black); display:flex; align-items:center; justify-content:center; padding:3rem; min-height:200px;">
-        <div style="text-align:center; color:var(--white);">
-          <p style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--mid-grey);margin-bottom:1rem;font-family:'Montserrat',sans-serif;">Il Progetto</p>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;margin-bottom:1rem;">Plastic Free Oceans</h3>
-          <p style="font-size:0.7rem;color:var(--mid-grey);letter-spacing:0.06em;line-height:1.8;margin-bottom:1.5rem;">Un'iniziativa globale per la pulizia degli oceani, insieme alla Fondazione UNESCO.</p>
-          <a href="#" class="btn-outline-white" style="font-size:0.58rem;">Scopri di più</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══════════════════════════════════════════════
-     CATEGORIE BORSE ICONICHE
-══════════════════════════════════════════════ -->
-<section aria-label="Borse iconiche">
-  <div class="section-header reveal">
-    <p class="section-eyebrow">Borse</p>
-    <h2 class="section-title">Le Icone Prada</h2>
-    <div class="section-rule"></div>
-  </div>
+  <!-- ░░ PRODOTTI GRID ░░ -->
+  <section class="prodotti" id="prodotti">
+    <div class="container">
+      <div class="section-label">✦ Collections</div>
+      <h2 class="section-title">Esplora il mondo NP</h2>
 
-  <div class="product-grid">
-    <div class="product-card reveal">
-      <div class="product-card-img">
-        <img src="https://placehold.co/450x600/F7F5F2/1A1916?text=Galleria" alt="Prada Galleria" />
-        <button class="product-card-wishlist" aria-label="Aggiungi a wishlist">♡</button>
-      </div>
-      <p class="product-card-name">Prada Galleria</p>
-      <p class="product-card-desc">Saffiano lux, Borsa a mano</p>
-      <p class="product-card-price">€ 2.950</p>
-    </div>
-    <div class="product-card reveal">
-      <div class="product-card-img">
-        <img src="https://placehold.co/450x600/E8E6E3/1A1916?text=Bonnie" alt="Prada Bonnie" />
-        <button class="product-card-wishlist" aria-label="Aggiungi a wishlist">♡</button>
-        <span class="product-card-badge">Novità</span>
-      </div>
-      <p class="product-card-name">Prada Bonnie</p>
-      <p class="product-card-desc">Pelle, Borsa a tracolla</p>
-      <p class="product-card-price">€ 1.850</p>
-    </div>
-    <div class="product-card reveal">
-      <div class="product-card-img">
-        <img src="https://placehold.co/450x600/1A1916/FFFFFF?text=Explore" alt="Prada Explore" />
-        <button class="product-card-wishlist" aria-label="Aggiungi a wishlist" style="color:var(--white);">♡</button>
-      </div>
-      <p class="product-card-name">Prada Explore</p>
-      <p class="product-card-desc">Re-Nylon e pelle, Tote</p>
-      <p class="product-card-price">€ 1.590</p>
-    </div>
-    <div class="product-card reveal">
-      <div class="product-card-img">
-        <img src="https://placehold.co/450x600/B0ADA8/FFFFFF?text=Soft" alt="Prada Soft" />
-        <button class="product-card-wishlist" aria-label="Aggiungi a wishlist" style="color:var(--white);">♡</button>
-        <span class="product-card-badge">PE 2026</span>
-      </div>
-      <p class="product-card-name">Prada Soft</p>
-      <p class="product-card-desc">Pelle morbida, Borsa a spalla</p>
-      <p class="product-card-price">€ 2.200</p>
-    </div>
-  </div>
-</section>
+      <div class="prod-grid">
 
-<!-- ══════════════════════════════════════════════
-     HIGHLIGHT — PRADA ROUTE
-══════════════════════════════════════════════ -->
-<section class="highlight-band reveal" aria-label="Prada Route">
-  <div class="highlight-text">
-    <p style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--mid-grey);margin-bottom:1.25rem;font-family:'Montserrat',sans-serif;">Progetto</p>
-    <h2>Prada Route</h2>
-    <p>
-      Un viaggio attraverso i luoghi che hanno ispirato l'immaginario di Prada. Un percorso culturale che attraversa le capitali della moda, dell'arte e del pensiero contemporaneo.
-    </p>
-    <a href="#" class="btn-outline-white">Esplora il Percorso</a>
-  </div>
-  <div class="highlight-visual">
-    <img src="https://placehold.co/600x750/0A0907/FFFFFF?text=Prada+Route" alt="Prada Route" />
-  </div>
-</section>
+        <!-- MAKEUP: Mascara -->
+        <article class="prod-card prod-card--tall">
+          <div class="prod-img-wrap">
+            <img src="https://images.unsplash.com/photo-1631214499065-b7a7fc6a3e82?w=700&q=80&fit=crop" alt="Mascara Pussy Power 2.0" />
+            <div class="prod-hover">
+              <span>Aggiungi al carrello →</span>
+            </div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-cat">Makeup</div>
+            <h3>Mascara Pus*y Power 2.0</h3>
+            <p>Il mascara iconico NP: pennello a ventilatore per ciglia XXL. Waterproof, buildabile, infallibile.</p>
+            <div class="prod-footer">
+              <span class="price">€ 24,90</span>
+              <button class="btn btn-dark btn-sm">Shop</button>
+            </div>
+          </div>
+        </article>
 
-<!-- ══════════════════════════════════════════════
-     CALZATURE CATEGORY STRIP
-══════════════════════════════════════════════ -->
-<section aria-label="Calzature">
-  <div class="section-header reveal">
-    <p class="section-eyebrow">Calzature</p>
-    <h2 class="section-title">Forme e Silhouette</h2>
-    <div class="section-rule"></div>
-  </div>
+        <!-- MAKEUP: Blush -->
+        <article class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=700&q=80&fit=crop" alt="Turn Me On Blush" />
+            <div class="prod-hover">
+              <span>Aggiungi al carrello →</span>
+            </div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-cat">Makeup</div>
+            <h3>Turn Me On — Blush &amp; Contour Stick</h3>
+            <p>Scolpisci, arrossisci, conquista. Un duo in stick facile da sfumare con le dita.</p>
+            <div class="prod-footer">
+              <span class="price">€ 19,90</span>
+              <button class="btn btn-dark btn-sm">Shop</button>
+            </div>
+          </div>
+        </article>
 
-  <div class="category-strip">
-    <div class="category-item reveal">
-      <div class="category-item-img">
-        <img src="https://placehold.co/300x300/1A1916/FFFFFF?text=Mocassini" alt="Mocassini" />
-      </div>
-      <p class="category-item-name">Mocassini</p>
-      <p class="category-item-sub">Da € 750</p>
-    </div>
-    <div class="category-item reveal">
-      <div class="category-item-img">
-        <img src="https://placehold.co/300x300/F7F5F2/1A1916?text=Sneakers" alt="Sneakers" />
-      </div>
-      <p class="category-item-name">Sneakers</p>
-      <p class="category-item-sub">Da € 690</p>
-    </div>
-    <div class="category-item reveal">
-      <div class="category-item-img">
-        <img src="https://placehold.co/300x300/E8E6E3/1A1916?text=Décolleté" alt="Décolleté" />
-      </div>
-      <p class="category-item-name">Décolleté</p>
-      <p class="category-item-sub">Da € 820</p>
-    </div>
-    <div class="category-item reveal">
-      <div class="category-item-img">
-        <img src="https://placehold.co/300x300/5A5854/FFFFFF?text=Sandali" alt="Sandali" />
-      </div>
-      <p class="category-item-name">Sandali</p>
-      <p class="category-item-sub">Da € 680</p>
-    </div>
-    <div class="category-item reveal">
-      <div class="category-item-img">
-        <img src="https://placehold.co/300x300/0A0907/FFFFFF?text=Stivali" alt="Stivali" />
-      </div>
-      <p class="category-item-name">Stivali</p>
-      <p class="category-item-sub">Da € 1.450</p>
-    </div>
-  </div>
-</section>
+        <!-- NIGHTWEAR -->
+        <article class="prod-card prod-card--dark">
+          <div class="prod-img-wrap">
+            <img src="https://images.unsplash.com/photo-1586375300773-8384e3e4916f?w=700&q=80&fit=crop" alt="Nightwear Dreamy" />
+            <div class="prod-hover">
+              <span>Scopri la linea →</span>
+            </div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-cat nightwear-tag">Nightwear</div>
+            <h3>Collezione Dreamy</h3>
+            <p>Per sentirsi iconica anche sotto le lenzuola. Tessuti morbidissimi che accarezzano la pelle.</p>
+            <div class="prod-footer">
+              <span class="price">da € 49,90</span>
+              <button class="btn btn-gold btn-sm">Shop</button>
+            </div>
+          </div>
+        </article>
 
-<!-- ══════════════════════════════════════════════
-     EDITORIAL — PE 2026 TERZETTI
-══════════════════════════════════════════════ -->
-<section aria-label="Primavera Estate 2026 Highlights">
-  <div class="section-header reveal">
-    <p class="section-eyebrow">Highlights</p>
-    <h2 class="section-title">Primavera Estate 2026</h2>
-    <div class="section-rule"></div>
-  </div>
+        <!-- ACCESSORI: Borraccia -->
+        <article class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=700&q=80&fit=crop" alt="Borraccia Termica" />
+            <div class="prod-hover">
+              <span>Aggiungi al carrello →</span>
+            </div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-cat">Accessori</div>
+            <h3>Borraccia Termica NP Edition</h3>
+            <p>Acciaio inossidabile SS304 con rivestimento in rame — 950ml. Mantiene calda 12h, fredda 24h.</p>
+            <div class="prod-footer">
+              <span class="price">€ 34,90</span>
+              <button class="btn btn-dark btn-sm">Shop</button>
+            </div>
+          </div>
+        </article>
 
-  <div class="editorial-grid thirds">
-    <div class="editorial-cell reveal">
-      <img src="https://placehold.co/600x750/F7F5F2/1A1916?text=Donna+PE26" alt="Donna PE 2026" />
-      <div class="editorial-overlay"></div>
-      <div class="editorial-label">
-        <p class="editorial-label-eyebrow">Donna</p>
-        <p class="editorial-label-title">La nuova femminilità</p>
-      </div>
-    </div>
-    <div class="editorial-cell reveal">
-      <img src="https://placehold.co/600x750/1A1916/FFFFFF?text=Uomo+PE26" alt="Uomo PE 2026" />
-      <div class="editorial-overlay"></div>
-      <div class="editorial-label">
-        <p class="editorial-label-eyebrow">Uomo</p>
-        <p class="editorial-label-title">Eleganza senza tempo</p>
-      </div>
-    </div>
-    <div class="editorial-cell reveal">
-      <img src="https://placehold.co/600x750/B0ADA8/FFFFFF?text=Accessori+PE26" alt="Accessori PE 2026" />
-      <div class="editorial-overlay"></div>
-      <div class="editorial-label">
-        <p class="editorial-label-eyebrow">Accessori</p>
-        <p class="editorial-label-title">Il dettaglio che fa la differenza</p>
+        <!-- CANCELLERIA -->
+        <article class="prod-card prod-card--wide">
+          <div class="prod-img-wrap">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=900&q=80&fit=crop" alt="Cancelleria NP" />
+            <div class="prod-hover">
+              <span>Scopri la linea →</span>
+            </div>
+          </div>
+          <div class="prod-info">
+            <div class="prod-cat">Cancelleria</div>
+            <h3>NP Stationery — Write it iconic</h3>
+            <p>Agende, notebook e pen set per le ragazze che fanno le cose in grande — e con stile.</p>
+            <div class="prod-footer">
+              <span class="price">da € 12,90</span>
+              <button class="btn btn-dark btn-sm">Shop</button>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══════════════════════════════════════════════
-     PICCOLA PELLETTERIA & ABBIGLIAMENTO
-══════════════════════════════════════════════ -->
-<section aria-label="Piccola Pelletteria e Abbigliamento">
-  <div class="section-header reveal">
-    <p class="section-eyebrow">Selezione</p>
-    <h2 class="section-title">Piccola Pelletteria & Abbigliamento</h2>
-    <div class="section-rule"></div>
-  </div>
-
-  <div class="product-grid">
-    <div class="product-card reveal">
-      <div class="product-card-img">
-        <img src="https://placehold.co/450x600/F7F5F2/1A1916?text=Portafoglio" alt="Portafoglio" />
-        <button class="product-card-wishlist" aria-label="Aggiungi a wishlist">♡</button>
-      </div>
-      <p class="product-card-name">Portafoglio Saffiano</p>
-      <p class="product-card-desc">Piccola pelletteria, Donna</p>
-      <p class="product-card-price">€ 350</p>
-    </div>
-    <div class="product-card reveal">
-      <div class="product-card-img">
-        <img src="https://placehold.co/450x600/1A1916/FFFFFF?text=Card+Holder" alt="Card Holder" />
-        <button class="product-card-wishlist" aria-label="Aggiungi a wishlist" style="color:var(--white);">♡</button>
-      </div>
-      <p class="product-card-name">Card Holder</p>
-      <p class="product-card-desc">Saffiano lux, Uomo</p>
-      <p class="product-card-price">€ 220</p>
-    </div>
-    <div class="product-card reveal">
-      <div class="product-card-img">
-        <img src="https://placehold.co/450x600/E8E6E3/1A1916?text=Giubbotto" alt="Giubbotto" />
-        <button class="product-card-wishlist" aria-label="Aggiungi a wishlist">♡</button>
-        <span class="product-card-badge">Novità</span>
-      </div>
-      <p class="product-card-name">Giubbotto Re-Nylon</p>
-      <p class="product-card-desc">Abbigliamento, Donna</p>
-      <p class="product-card-price">€ 1.890</p>
-    </div>
-    <div class="product-card reveal">
-      <div class="product-card-img">
-        <img src="https://placehold.co/450x600/5A5854/FFFFFF?text=Polo" alt="Polo" />
-        <button class="product-card-wishlist" aria-label="Aggiungi a wishlist" style="color:var(--white);">♡</button>
-      </div>
-      <p class="product-card-name">Polo in Piqué</p>
-      <p class="product-card-desc">Abbigliamento, Uomo</p>
-      <p class="product-card-price">€ 480</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     FINE JEWELRY
-══════════════════════════════════════════════ -->
-<section class="jewelry-section" aria-label="Fine Jewelry">
-  <div class="section-header reveal" style="padding-top:0;">
-    <p class="section-eyebrow">Fine Jewelry</p>
-    <h2 class="section-title">Gioielleria</h2>
-    <div class="section-rule"></div>
-    <p class="section-desc">
-      La gioielleria Prada incarna la raffinatezza attraverso l'uso di materiali preziosi e forme archetipiche, in un dialogo tra tradizione artigianale e visione contemporanea.
-    </p>
-  </div>
-
-  <div class="jewelry-grid reveal">
-    <div class="jewelry-cell">
-      <img src="https://placehold.co/280x280/F7F5F2/1A1916?text=Eternal+Gold" alt="Eternal Gold" />
-      <p class="jewelry-line">Linea</p>
-      <p class="jewelry-name">Eternal Gold</p>
-      <p style="font-size:0.65rem;color:var(--dark-grey);margin-top:0.5rem;letter-spacing:0.06em;">Oro giallo 18 carati</p>
-    </div>
-    <div class="jewelry-cell">
-      <img src="https://placehold.co/280x280/E8E6E3/1A1916?text=Couleur+Vivante" alt="Couleur Vivante" />
-      <p class="jewelry-line">Linea</p>
-      <p class="jewelry-name">Couleur Vivante</p>
-      <p style="font-size:0.65rem;color:var(--dark-grey);margin-top:0.5rem;letter-spacing:0.06em;">Pietre preziose e smalti</p>
-    </div>
-    <div class="jewelry-cell" style="background:var(--near-black); color:var(--white);">
-      <div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:260px;aspect-ratio:1;background:rgba(255,255,255,0.05);margin:0 auto 1.5rem;">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;letter-spacing:0.15em;color:var(--mid-grey);">F.J.</p>
-      </div>
-      <p class="jewelry-line" style="color:var(--mid-grey);">Scopri</p>
-      <p class="jewelry-name">L'intera Collezione</p>
-      <br/>
-      <a href="#" class="btn-outline-white" style="font-size:0.58rem;margin-top:1rem;">Vedi tutto</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     HIGHLIGHT — FONDAZIONE & SOSTENIBILITÀ
-══════════════════════════════════════════════ -->
-<section class="highlight-band reverse reveal" aria-label="Fondazione Prada e Sostenibilità">
-  <div class="highlight-text">
-    <p style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--mid-grey);margin-bottom:1.25rem;font-family:'Montserrat',sans-serif;">Universo Prada</p>
-    <h2>Fondazione Prada &amp; Sostenibilità</h2>
-    <p>
-      La Fondazione Prada promuove la cultura contemporanea attraverso mostre, cinema e architettura. L'impegno verso la sostenibilità si traduce in progetti concreti per ridurre l'impatto ambientale in tutta la filiera produttiva.
-    </p>
-    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-      <a href="#" class="btn-outline-white">Fondazione Prada</a>
-      <a href="#" class="btn-outline-white">Sostenibilità</a>
-    </div>
-  </div>
-  <div class="highlight-visual">
-    <img src="https://placehold.co/600x750/1A1916/FFFFFF?text=Fondazione+Prada" alt="Fondazione Prada" />
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     PROFUMI HIGHLIGHT
-══════════════════════════════════════════════ -->
-<section aria-label="Profumi">
-  <div class="section-header reveal">
-    <p class="section-eyebrow">Profumi e Beauty</p>
-    <h2 class="section-title">Le Fragranze Prada</h2>
-    <div class="section-rule"></div>
-  </div>
-
-  <div class="editorial-grid" style="background:transparent; gap:1.5rem; padding:0 2rem 5rem;">
-    <div class="editorial-cell reveal" style="background:var(--off-white);">
-      <img src="https://placehold.co/800x500/F7F5F2/1A1916?text=Prada+Paradoxe" alt="Prada Paradoxe" style="min-height:360px;" />
-      <div class="editorial-overlay" style="background:linear-gradient(to top, rgba(10,9,7,0.3) 0%, transparent 50%);"></div>
-      <div class="editorial-label">
-        <p class="editorial-label-eyebrow">Donna</p>
-        <p class="editorial-label-title">Prada Paradoxe</p>
+  <!-- ░░ FOUNDER SECTION ░░ -->
+  <section class="founder">
+    <div class="founder-img-col">
+      <img
+        src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=80&fit=crop&crop=face"
+        alt="Nicole Pallado — Fondatrice NP Cosmetics"
+      />
+      <div class="founder-img-badge">
+        <span>✦</span>
+        <p>Nicole P.<br /><small>Founder & CEO</small></p>
       </div>
     </div>
-    <div class="editorial-cell reveal" style="background:var(--near-black);">
-      <img src="https://placehold.co/800x500/0A0907/B0ADA8?text=Luna+Rossa" alt="Luna Rossa" style="min-height:360px;" />
-      <div class="editorial-overlay"></div>
-      <div class="editorial-label">
-        <p class="editorial-label-eyebrow">Uomo</p>
-        <p class="editorial-label-title">Luna Rossa</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     LUNA ROSSA (VELA)
-══════════════════════════════════════════════ -->
-<section style="padding:5rem 2rem; text-align:center; background:var(--near-black); color:var(--white);" aria-label="Luna Rossa">
-  <div class="reveal">
-    <p class="section-eyebrow" style="color:var(--mid-grey);">Sport & Lifestyle</p>
-    <h2 class="section-title" style="color:var(--white); margin-bottom:1rem;">Luna Rossa</h2>
-    <div class="section-rule" style="background:var(--mid-grey);"></div>
-    <p class="section-desc" style="color:var(--mid-grey); margin-bottom:2rem;">
-      Luna Rossa Prada Pirelli – il team velico di Prada che unisce la tecnologia e la performance al design iconico del brand.
-    </p>
-    <a href="#" class="btn-outline-white">Scopri Luna Rossa</a>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     DIVIDER
-══════════════════════════════════════════════ -->
-<div class="section-divider"></div>
-
-<!-- ══════════════════════════════════════════════
-     NEWSLETTER
-══════════════════════════════════════════════ -->
-<section class="newsletter-section reveal" aria-label="Newsletter">
-  <p class="section-eyebrow">Newsletter</p>
-  <h2>Rimani Aggiornato</h2>
-  <div class="section-rule" style="margin:1rem auto;"></div>
-  <p>Iscriviti alla newsletter Prada per ricevere in anteprima le ultime novità su collezioni, eventi esclusivi e progetti speciali.</p>
-  <div class="newsletter-form" role="form" aria-label="Iscrizione newsletter">
-    <input type="email" placeholder="Inserisci la tua email" aria-label="Indirizzo email" />
-    <button type="button">Iscriviti</button>
-  </div>
-  <p style="font-size:0.58rem;color:var(--mid-grey);margin-top:1rem;letter-spacing:0.06em;line-height:1.7;">
-    Iscrivendoti accetti la nostra <a href="#" style="color:var(--near-black);">Privacy Policy</a>. Puoi cancellarti in qualsiasi momento.
-  </p>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     FOOTER
-══════════════════════════════════════════════ -->
-<footer aria-label="Footer">
-  <div class="footer-main">
-    <div class="footer-brand">
-      <a href="#" class="logo-footer">PRADA</a>
-      <p>
-        Fondato nel 1913 a Milano, Prada è una delle maison di moda più iconiche al mondo, simbolo di eleganza, artigianalità e innovazione creativa.
+    <div class="founder-text-col">
+      <div class="section-label light">✦ La Fondatrice</div>
+      <h2 class="section-title light">Benvenut* nel<br /><em>mio bazar, baby!</em></h2>
+      <p class="founder-quote">"Sono Nicole Pallado: una grande donna di lusso!"</p>
+      <p class="founder-body">
+        NP Cosmetics nasce dalla mia ossessione per i prodotti belli, efficaci e onesti. 
+        Ogni singolo articolo che vedi su questo sito è stato testato, amato e approvato da me e dal mio team. 
+        Non scendo a compromessi — e non lo farei mai con te.
       </p>
-      <div style="margin-bottom:1.5rem;">
-        <a href="#" class="cs-badge" aria-label="WhatsApp Customer Service">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.552 4.117 1.516 5.845L.054 23.72a.75.75 0 0 0 .919.919l5.875-1.462A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.942 0-3.754-.528-5.303-1.443l-.382-.228-3.939.98.999-3.843-.249-.396A9.713 9.713 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-          WhatsApp
-        </a>
-        <a href="#" class="cs-badge" aria-label="Live Chat">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Live Chat
-        </a>
-      </div>
-      <div class="social-links">
-        <a href="#" class="social-link">Instagram</a>
-        <a href="#" class="social-link">YouTube</a>
-        <a href="#" class="social-link">Spotify</a>
-        <a href="#" class="social-link">TikTok</a>
-        <a href="#" class="social-link">WeChat</a>
-      </div>
+      <blockquote class="founder-claim">
+        "Se non è approvato da tutto il team Nicole P,<br />
+        non esce nemmeno dall'ufficio. Punto."
+      </blockquote>
+      <a href="#contatti" class="btn btn-gold">Scrivimi ✦</a>
     </div>
+  </section>
 
-    <div class="footer-col">
-      <h5>Customer Service</h5>
-      <ul>
-        <li><a href="#">Contattaci</a></li>
-        <li><a href="#">Spedizione e Resi</a></li>
-        <li><a href="#">Ordini</a></li>
-        <li><a href="#">Autenticità</a></li>
-        <li><a href="#">Cura dei Prodotti</a></li>
-        <li><a href="#">Negozi</a></li>
-        <li><a href="#">Prenotazioni in Boutique</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h5>Prada Group</h5>
-      <ul>
-        <li><a href="#">Fondazione Prada</a></li>
-        <li><a href="#">Luna Rossa</a></li>
-        <li><a href="#">Sostenibilità</a></li>
-        <li><a href="#">Responsabilità Sociale</a></li>
-        <li><a href="#">Investor Relations</a></li>
-        <li><a href="#">Lavora con Noi</a></li>
-        <li><a href="#">Press</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h5>Informazioni</h5>
-      <ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Cookie Policy</a></li>
-        <li><a href="#">Termini e Condizioni</a></li>
-        <li><a href="#">Conformità</a></li>
-        <li><a href="#">Accessibilità</a></li>
-        <li><a href="#">Sitemap</a></li>
-      </ul>
-      <div style="margin-top:2rem;">
-        <h5>Lingua e Paese</h5>
-        <button style="background:none;border:none;color:var(--white);opacity:0.8;font-size:0.7rem;letter-spacing:0.08em;cursor:pointer;padding:0;font-family:'Montserrat',sans-serif;display:flex;align-items:center;gap:0.5rem;">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          Italia — Italiano
-        </button>
+  <!-- ░░ SOCIAL PROOF / QUOTE BREAK ░░ -->
+  <section class="quote-break">
+    <div class="container qb-inner">
+      <p class="qb-label">As seen on</p>
+      <div class="qb-stats">
+        <div>
+          <span class="stat-num">50K+</span>
+          <span class="stat-label">Clienti felici</span>
+        </div>
+        <div class="stat-divider">✦</div>
+        <div>
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Made in Italy</span>
+        </div>
+        <div class="stat-divider">✦</div>
+        <div>
+          <span class="stat-num">4.9★</span>
+          <span class="stat-label">Rating medio</span>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="footer-bottom">
-    <p>© 2025 Prada S.A. Tutti i diritti riservati. — Via Antonio Fogazzaro, 28, 20135 Milano, Italia</p>
-    <div class="footer-legal">
-      <a href="#">Privacy</a>
-      <a href="#">Cookie</a>
-      <a href="#">Termini</a>
-      <a href="#">Accessibilità</a>
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer" id="contatti">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-row">
+          <span class="logo-np">NP</span>
+          <span class="logo-text">Cosmetics</span>
+        </div>
+        <p>Luxury makeup &amp; lifestyle.<br />Ideato e sviluppato in Italia.</p>
+        <div class="social-row">
+          <a href="https://www.instagram.com/nicolepcosmetics" target="_blank" aria-label="Instagram" class="social-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@nicolepcosmetics" target="_blank" aria-label="TikTok" class="social-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.59a8.16 8.16 0 0 0 4.76 1.52V7.66a4.85 4.85 0 0 1-.99-.97Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">Novità</a></li>
+          <li><a href="#">Makeup</a></li>
+          <li><a href="#">Nightwear</a></li>
+          <li><a href="#">Accessori</a></li>
+          <li><a href="#">Cancelleria</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Spedizioni &amp; Resi</a></li>
+          <li><a href="#">Contattaci</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Ciao dolcezza,<br /><em>rimaniamo in contatto!</em></h4>
+        <p>Iscriviti alla newsletter per accedere a offerte esclusive, nuovi drop e contenuti riservati.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="La tua email più bella..." aria-label="Email per newsletter" />
+          <button class="btn btn-gold" type="submit">→</button>
+        </div>
+        <p class="newsletter-note">Niente spam. Solo cose buone. Promesso ✦</p>
+      </div>
     </div>
-  </div>
-</footer>
 
-<!-- ══════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════ -->
-<script>
-  // ─── Cookie Banner ───
-  function closeCookie() {
-    const banner = document.getElementById('cookie-banner');
-    banner.style.transition = 'opacity 0.4s, transform 0.4s';
-    banner.style.opacity = '0';
-    banner.style.transform = 'translateY(100%)';
-    setTimeout(() => banner.remove(), 450);
-  }
+    <div class="footer-bottom">
+      <p>© 2024 Nicole P Cosmetics — Tutti i diritti riservati. P.IVA: IT0000000000</p>
+      <p>Designed with ♥ in Italy</p>
+    </div>
+  </footer>
 
-  // ─── Search Overlay ───
-  function toggleSearch() {
-    const overlay = document.getElementById('search-overlay');
-    overlay.classList.toggle('active');
-    if (overlay.classList.contains('active')) {
-      document.getElementById('search-input').focus();
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-  }
-
-  document.getElementById('search-overlay').addEventListener('click', function(e) {
-    if (e.target === this) toggleSearch();
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      const overlay = document.getElementById('search-overlay');
-      if (overlay.classList.contains('active')) toggleSearch();
-      const menu = document.getElementById('mobile-menu');
-      if (menu.classList.contains('open')) toggleMobileMenu();
-    }
-  });
-
-  // ─── Mobile Menu ───
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('open');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-  }
-
-  function toggleMobileSub(id) {
-    const sub = document.getElementById(id);
-    sub.classList.toggle('open');
-  }
-
-  // Mobile search btn visibility
-  const mobileSearchBtn = document.getElementById('mobile-search-btn');
-  if (window.innerWidth <= 768) {
-    mobileSearchBtn.style.display = 'block';
-  }
-  window.addEventListener('resize', () => {
-    mobileSearchBtn.style.display = window.innerWidth <= 768 ? 'block' : 'none';
-  });
-
-  // ─── Scroll Reveal ───
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
+  <script>
+    // Sticky navbar
+    window.addEventListener('scroll', () => {
+      const nb = document.getElementById('navbar');
+      nb.classList.toggle('scrolled', window.scrollY > 60);
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.reveal').forEach((el, i) => {
-    el.style.transitionDelay = (i % 4) * 0.08 + 's';
-    revealObserver.observe(el);
-  });
-
-  // ─── Wishlist toggle ───
-  document.querySelectorAll('.product-card-wishlist').forEach(btn => {
-    btn.addEventListener('click', function() {
-      this.textContent = this.textContent === '♡' ? '♥' : '♡';
-    });
-  });
-
-  // ─── Newsletter ───
-  const newsletterBtn = document.querySelector('.newsletter-form button');
-  if (newsletterBtn) {
-    newsletterBtn.addEventListener('click', function() {
-      const input = document.querySelector('.newsletter-form input');
-      if (input.value && input.value.includes('@')) {
-        const form = document.querySelector('.newsletter-form');
-        form.innerHTML = '<p style="font-size:0.7rem;letter-spacing:0.12em;color:var(--near-black);padding:0.75rem 0;">Grazie per l\'iscrizione.</p>';
-      } else {
-        input.style.borderBottom = '1px solid #c00';
-        setTimeout(() => input.style.borderBottom = '', 2000);
-      }
-    });
-  }
-
-  // ─── Cart counter ───
-  let cartCount = 0;
-  const cartBadge = document.querySelector('.cart-badge');
-
-  // ─── Sticky header shrink ───
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const header = document.getElementById('main-header');
-    const scrollY = window.scrollY;
-    if (scrollY > 80) {
-      header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
-    } else {
-      header.style.boxShadow = 'none';
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('mobileNav').classList.toggle('open');
     }
-    lastScroll = scrollY;
-  }, { passive: true });
-</script>
 
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(
+      '.novita-card, .prod-card, .founder-img-col, .founder-text-col, .qb-stats > div'
+    ).forEach(el => {
+      el.classList.add('fade-up');
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
